@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between m-3">
+<div class="m-3">
   <div class="card card-sm col-md-6">
     <div class="card-header">Grupos / Slots</div>
     <ng-container *ngIf="groupForm?.value?.groups?.length > 0; else noData">
@@ -95,12 +95,5 @@
         <span class="mx-1">Add Group</span>
       </button>
     </div>
-  </div>
-
-  <div class="card card-sm col-md-5">
-    <div class="card-header">Result</div>
-    <pre>
-      {{ groupForm.value | json }}
-    </pre>
   </div>
 </div>
