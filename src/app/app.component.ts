@@ -23,18 +23,21 @@ export class AppComponent {
     slots: this.fb.array([]),
   });
 
-  // Value Getters
-  getter(type: string) {
-    return this.groupForm.controls[type] as FormArray;
+  // Getters
+  get groups() {
+    return this.groupForm.controls['groups'] as FormArray;
   }
 
-  // Form Group getters
-  getGroupsFG() {
+  get slots() {
+    return this.slotForm.controls['slots'] as FormArray;
+  }
+
+  get groupsFormGroup() {
     return (this.groupForm.controls['groups'] as FormArray)
       .controls as FormGroup[];
   }
 
-  getSlotsFG(groupIdx: number) {
+  slotsFormGroup(groupIdx: number) {
     let slotFormArray = (this.slotForm.controls['slots'] as FormArray)
       .controls as FormGroup[];
 
@@ -51,7 +54,8 @@ export class AppComponent {
       groupName: ['', Validators.required],
       slots: [[]],
     });
-    this.getter('groups').push(groupForm);
+
+    this.groups.push(groupForm);
     this.slotForm.value.slots = [];
   }
 
@@ -60,16 +64,17 @@ export class AppComponent {
       slotName: ['', Validators.required],
       groupIdx: groupIdx,
     });
-    this.getter('slots').push(slotForm);
-    this.getter('groups').value[groupIdx].slots = this.getter('slots').value;
+
+    this.slots.push(slotForm);
+    this.groups.value[groupIdx].slots = this.slots.value;
   }
 
   deleteGroup(groupIdx: number): void {
-    this.getter('groups').removeAt(groupIdx);
+    this.groups.removeAt(groupIdx);
   }
 
   deleteSlot(groupIdx: number, slotIdx: number): void {
-    this.getter('slots').removeAt(slotIdx);
-    this.getter('groups').value[groupIdx].slots = this.getter('slots').value;
+    this.slots.removeAt(slotIdx);
+    this.groups.value[groupIdx].slots = this.slots.value;
   }
 }
