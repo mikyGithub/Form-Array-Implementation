@@ -1,99 +1,20 @@
-<div class="m-3">
-  <div class="card card-sm col-md-6">
-    <div class="card-header">Grupos / Slots</div>
-    <ng-container *ngIf="groupForm?.value?.groups?.length > 0; else noData">
-      <table class="table table-sm table-borderless my-3">
-        <thead>
-          <tr class="border-top border-bottom">
-            <th scope="col">#</th>
-            <th class="col-md-4" scope="col">Grupo</th>
-            <th class="col-md-7" scope="col">Slot</th>
-          </tr>
-        </thead>
-
-        <tbody [formGroup]="groupForm">
-          <ng-container formArrayName="groups">
-            <ng-container
-              *ngFor="let groupForm of groupsFormGroup; let groupIdx = index"
-            >
-              <ng-container [formGroup]="groupForm">
-                <tr>
-                  <td>
-                    <button
-                      (click)="deleteGroup(groupIdx)"
-                      class="btn btn-danger font-weight-bold"
-                    >
-                      <fa-icon [icon]="faMinus"></fa-icon>
-                    </button>
-                  </td>
-                  <td>
-                    <input
-                      formControlName="groupName"
-                      type="text"
-                      class="form-control"
-                      [placeholder]="'Enter Group No ' + (groupIdx + 1)"
-                    />
-                  </td>
-                  <td class="">
-                    <ng-container [formGroup]="slotForm">
-                      <ng-container formArrayName="slots">
-                        <ng-container
-                          *ngFor="
-                            let slotForm of slotsFormGroup(groupIdx);
-                            let slotIdx = index
-                          "
-                        >
-                          <ng-container [formGroup]="slotForm">
-                            <div class="d-flex border-top mx-2 pb-3 py-1">
-                              <input
-                                formControlName="slotName"
-                                type="text"
-                                class="form-control"
-                                [placeholder]="'Enter Slot No ' + (slotIdx + 1)"
-                              />
-                              <button
-                                (click)="deleteSlot(groupIdx, slotIdx)"
-                                class="btn btn-danger btn-exSm font-weight-bold btn-sm mx-2"
-                              >
-                                <fa-icon [icon]="faMinus"></fa-icon>
-                              </button>
-                            </div>
-                          </ng-container>
-                        </ng-container>
-                      </ng-container>
-                    </ng-container>
-                    <div class="border-top mx-2 pb-3 py-1">
-                      <button
-                        (click)="addSlot(groupIdx)"
-                        class="btn-custom btn-slot font-weight-bold mx-2"
-                      >
-                        <fa-icon [icon]="faPlus"></fa-icon>
-                        <span class="mx-1">Add Slot</span>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-        </tbody>
-      </table>
-    </ng-container>
-    <ng-template #noData>
-      <div
-        class="d-flex align-items-center justify-content-center col-md-12 rounded p-5"
-      >
-        No Data Available
-      </div>
-    </ng-template>
-    <div class="card-footer">
-      <button
-        (click)="addGroup()"
-        class="btn-custom btn-group font-weight-bold mx-2"
-      >
-        <fa-icon [icon]="faPlus"></fa-icon>
-        <span class="mx-1">Add Group</span>
-      </button>
-    </div>
-  </div>
+<div class="d-flex justify-content-end">
+  <button
+    *ngIf="isFinal"
+    (click)="isFinal = !isFinal"
+    class="btn btn-sm btn-primary"
+  >
+    Test 1
+  </button>
+  <button
+    *ngIf="!isFinal"
+    (click)="isFinal = !isFinal"
+    class="btn btn-sm btn-primary"
+  >
+    Final Test
+  </button>
 </div>
+<ng-container *ngIf="isFinal; else showTestOne">
+  <app-final-test></app-final-test>
+</ng-container>
+<ng-template #showTestOne> <app-test-one></app-test-one> </ng-template>

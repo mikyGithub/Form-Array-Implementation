@@ -1,0 +1,133 @@
+<div class="container antialiased">
+  <strong class="mb-4 text-xl">Nested Dynamic Form Final Question</strong>
+  <div class="flex justify-between mt-4">
+    <div class="w-1/2 mr-12">
+      <!-- Form -->
+      <ng-container [formGroup]="dynamicForm">
+        <!-- Title Section -->
+        <div class="bg-gray-200 px-24 py-3 mb-3">
+          <input
+            formControlName="title"
+            type="text"
+            class="focus:outline-none border-none w-100 px-3 py-2 text-xs"
+            placeholder="Title"
+          />
+        </div>
+        <!-- A & B Section -->
+
+        <div>
+          <p class="px-24 mt-3 font-semibold mb-1">A & B</p>
+          <div class="bg-gray-200 px-24 py-3">
+            <ng-container *ngIf="absFormGroup.length > 0; else emptyState">
+              <ng-container *ngFor="let abForm of absFormGroup; let i = index">
+                <div [formGroup]="abForm" class="flex mb-2">
+                  <input
+                    formControlName="a"
+                    type="text"
+                    class="focus:outline-none border-none w-2/12 mr-3 px-3 py-2 text-xs"
+                    [placeholder]="'A' + (i + 1)"
+                  />
+                  <input
+                    formControlName="b"
+                    type="text"
+                    class="focus:outline-none border-none w-2/12 px-3 py-2 text-xs"
+                    [placeholder]="'B' + (i + 1)"
+                  />
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <div class="flex justify-end">
+              <button
+                (click)="addAB()"
+                class="btn-custom font-weight-bold mx-2 px-3 py-2"
+              >
+                <span class="mx-1">Add A & B</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Group Section -->
+        <div>
+          <p class="px-24 mt-3 font-semibold mb-1">Groups</p>
+          <div class="bg-gray-200 px-24 py-3">
+            <ng-container *ngIf="groupsFormGroup.length > 0; else emptyState">
+              <ng-container
+                *ngFor="let groupForm of groupsFormGroup; let groupIdx = index"
+              >
+                <ng-container [formGroup]="groupForm">
+                  <input
+                    formControlName="groupName"
+                    type="text"
+                    class="focus:outline-none border-none w-100 px-3 py-2 text-xs"
+                    [placeholder]="'G' + (groupIdx + 1)"
+                  />
+                  <div class="bg-white pl-3 my-3 py-2">
+                    <p class="font-semibold mb-2">Captions</p>
+                    <ng-container
+                      *ngFor="
+                        let captionForm of captionsFormGroup(groupIdx);
+                        let i = index
+                      "
+                    >
+                      <ng-container [formGroup]="captionForm">
+                        <div class="flex mb-2">
+                          <input
+                            type="text"
+                            formControlName="caption"
+                            class="focus:outline-none border-none bg-gray-200 w-2/12 mr-4 px-2 py-1 text-xs"
+                            [placeholder]="'C' + (i + 1)"
+                          />
+                          <input
+                            type="text"
+                            formControlName="value"
+                            class="focus:outline-none border-none bg-gray-200 w-2/12 px-2 py-1 text-xs"
+                            [placeholder]="'V' + (i + 1)"
+                          />
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <div class="flex justify-end">
+                      <button
+                        (click)="addCaption(groupIdx)"
+                        class="btn-custom font-weight-bold mx-2 px-3 py-1"
+                      >
+                        <span class="mx-1">Add C & V</span>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <button
+              (click)="addGroup()"
+              class="btn-custom font-weight-bold my-2 px-3 py-1"
+            >
+              <span class="mx-1">Add Group</span>
+            </button>
+          </div>
+        </div>
+        <button
+          (click)="onSubmit()"
+          class="btn-custom font-weight-bold my-3 px-3 mx-24 py-2"
+        >
+          <span class="mx-1">Submit</span>
+        </button>
+      </ng-container>
+    </div>
+    <div class="bg-gray-200 flex-1">
+      <ng-container *ngIf="showResult">
+        <pre>
+          {{ this.dynamicForm.value | json }}
+        </pre>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyState>
+  <div class="p-20 my-3 border border-dashed text-center bg-white rounded-lg">
+    No Data Available
+  </div>
+</ng-template>

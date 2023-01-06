@@ -1,0 +1,13 @@
+.btn-custom {
+  color: #f2f2f2;
+  border-radius: 0;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #4a58fe;
+}
+.btn-custom:focus {
+  outline: none;
+  color: #fff;
+}

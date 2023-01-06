@@ -1,0 +1,25 @@
+.btn-custom {
+  color: #f2f2f2;
+  border-radius: 0;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: bold;
+}
+.btn-custom:focus {
+  outline: none;
+  color: #fff;
+}
+.btn-group {
+  background-color: #2f7bb7;
+}
+.btn-slot {
+  background-color: #4ec5f4;
+}
+.btn-exSm {
+  height: 25px !important;
+  width: 25px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
